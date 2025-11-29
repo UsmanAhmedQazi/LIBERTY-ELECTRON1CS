@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - TechVision Electronics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<style>
+/* ---------------------------------- */
+/* GLOBAL STYLES */
+/* ---------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f8f9fa; /* Lighter background for a cleaner look */
+}
+
+/* ---------------------------------- */
+/* NAVIGATION */
+/* ---------------------------------- */
+header {
+    background: #0a1929;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1976d2;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #e3f2fd !important;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 15px !important;
+    transition: all 0.3s;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background: rgba(25, 118, 210, 0.1);
+    color: #1976d2 !important;
+}
+
+.nav-link.active {
+    color: #1976d2 !important;
+    background: rgba(25, 118, 210, 0.1);
+    font-weight: 700;
+}
+
+/* ---------------------------------- */
+/* HERO BANNER (REFINED) */
+/* ---------------------------------- */
+#hero-banner {
+    background: linear-gradient(135deg, #0a1929 0%, #1976d2 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#hero-banner .product-image {
+    max-height: 400px;
+    object-fit: contain;
+    transform: rotateY(15deg) scale(1.05); /* Slight 3D effect */
+    transition: transform 0.5s ease-out;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5));
+}
+
+#hero-banner .hero-content {
+    text-align: left;
+}
+
+#hero-banner h1 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+#hero-banner p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #bbdefb;
+}
+
+/* ---------------------------------- */
+/* CATEGORY NAVIGATION */
+/* ---------------------------------- */
+.category-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+.category-card:hover {
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.1);
+    transform: translateY(-3px);
+    border-color: #1976d2;
+}
+
+.category-card i {
+    font-size: 2.5rem;
+    color: #1976d2;
+    margin-bottom: 10px;
+}
+
+/* ---------------------------------- */
+/* SIDEBAR FILTER */
+/* ---------------------------------- */
+.sidebar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar h5 {
+    font-weight: 700;
+    color: #0a1929;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar .form-check-label {
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+.sidebar .form-check-input:checked {
+    background-color: #1976d2;
+    border-color: #1976d2;
+}
+
+/* ---------------------------------- */
+/* PRODUCT CARD (REFINED) */
+/* ---------------------------------- */
+.product-card {
+    transition: all 0.3s;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    /* REMOVED: Static animation styles to allow AOS to control scroll animation */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+    /* animation: fadeInSlideUp 0.6s ease-out forwards; */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(25, 118, 210, 0.2);
+}
+
+.product-card .card-img-top {
+    height: 250px;
+    object-fit: contain; /* Important for clean product display */
+    padding: 20px;
+    background: #f8f9fa; /* Light grey background for the image area */
+}
+
+.product-card .card-body {
+    padding: 20px;
+}
+
+.product-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.product-card .price-tag {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1976d2;
+}
+
+.product-card .tag-new {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #1976d2;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 3px;
+    z-index: 5;
+}
+
+.card-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.btn-tech-primary {
+    background: #1976d2;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-tech-primary:hover {
+    background: #1565c0;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* REMOVED: This static animation is replaced by AOS */
+/* @keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} */
+
+/* Cart Modal Styling */
+.cart-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+.cart-total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a1929;
+}
+
+/* Compare Modal Styling */
+.compare-table img {
+    height: 80px;
+    object-fit: contain;
+}
+.compare-table th {
+    width: 150px;
+    background-color: #f1f1f1;
+}
+
+
+
+</style>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand logo" href="products.html">LIBERTY ELECTRONICS</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">PRODUCTS</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#compareModal">
+                                <i class="bi bi-columns-gap"></i> COMPARE
+                                <span class="badge rounded-pill bg-warning text-dark" id="compare-count">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                                <i class="bi bi-cart-fill"></i> 
+                                <span class="badge rounded-pill bg-danger" id="cart-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero-banner" data-aos="fade-down">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 hero-content">
+                    <span class="badge bg-light text-dark mb-3">NEXT GENERATION</span>
+                    <h1>Innovation Across Categories</h1>
+                    <p class="lead">Explore the latest in Smart Technology, from flagship phones to powerful laptops and wearable tech.</p>
+                    <a href="about.html" class="btn btn-lg btn-light fw-bold me-3">View Featured</a>
+                    <a href="products.html" class="btn btn-lg btn-outline-light">All Products</a>
+                  
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+    <section id="product-categories" class="pb-5 pt-3">
+        <div class="container">
+            <h2 class="h5 fw-bold mb-4 text-center text-muted" data-aos="fade-zoom-in">Quick Shop by Category</h2>
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3 justify-content-center">
+                
+                <div class="col">
+                    <a href="#" class="text-decoration-none text-dark filter-category-link" data-target-category="smartphone">
+                        <div class="category-card shadow-sm" data-aos="fade-up" data-aos-delay="50">
+                            <i class="bi bi-phone"></i>
+                            <h6 class="fw-bold mb-0">Smartphones</h6>
+                            <p class="small text-muted mb-0">Flagship & Lite</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col">
+                    <a href="#" class="text-decoration-none text-dark filter-category-link" data-target-category="laptop">
+                        <div class="category-card shadow-sm" data-aos="fade-up" data-aos-delay="150">
+                            <i class="bi bi-laptop"></i>
+                            <h6 class="fw-bold mb-0">Laptops</h6>
+                            <p class="small text-muted mb-0">Pro & Gaming</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col">
+                    <a href="#" class="text-decoration-none text-dark filter-category-link" data-target-category="watch">
+                        <div class="category-card shadow-sm" data-aos="fade-up" data-aos-delay="250">
+                            <i class="bi bi-smartwatch"></i>
+                            <h6 class="fw-bold mb-0">Watches</h6>
+                            <p class="small text-muted mb-0">Classic & Sport</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="#" class="text-decoration-none text-dark filter-category-link" data-target-category="earbud">
+                        <div class="category-card shadow-sm" data-aos="fade-up" data-aos-delay="350">
+                            <i class="bi bi-earbuds"></i>
+                            <h6 class="fw-bold mb-0">Earbuds</h6>
+                            <p class="small text-muted mb-0">Wireless Audio</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col">
+                    <a href="#" class="text-decoration-none text-dark filter-category-link" data-target-category="accessory">
+                        <div class="category-card shadow-sm" data-aos="fade-up" data-aos-delay="450">
+                            <i class="bi bi-box-seam"></i>
+                            <h6 class="fw-bold mb-0">Accessories</h6>
+                            <p class="small text-muted mb-0">Cases & More</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-3 mb-4" data-aos="fade-right">
+                    <div class="sidebar sticky-top" style="top: 100px;">
+                        <h5 class="mb-3">Filter Products</h5>
+                        
+                        <div class="mb-4">
+                            <h6>Category</h6>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="smartphone" id="catSmartphone" data-filter-type="category" checked>
+                                <label class="form-check-label" for="catSmartphone">Smartphones</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="laptop" id="catLaptop" data-filter-type="category" checked>
+                                <label class="form-check-label" for="catLaptop">Laptops</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="watch" id="catWatch" data-filter-type="category" checked>
+                                <label class="form-check-label" for="catWatch">Watches</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="earbud" id="catEarbud" data-filter-type="category" checked>
+                                <label class="form-check-label" for="catEarbud">Earbuds</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="accessory" id="catAccessory" data-filter-type="category" checked>
+                                <label class="form-check-label" for="catAccessory">Accessories</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6>Series</h6>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="pro-max" id="seriesProMax" data-filter-type="series" checked>
+                                <label class="form-check-label" for="seriesProMax">Pro / Max Line</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="lite" id="seriesLite" data-filter-type="series" checked>
+                                <label class="form-check-label" for="seriesLite">Lite / A Series</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6>Price Range</h6>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="low" id="priceLow" data-filter-type="price" checked>
+                                <label class="form-check-label" for="priceLow">Under $500</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="mid" id="priceMid" data-filter-type="price" checked>
+                                <label class="form-check-label" for="priceMid">$500 - $1200</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input filter-check" type="checkbox" value="high" id="priceHigh" data-filter-type="price" checked>
+                                <label class="form-check-label" for="priceHigh">$1200+</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <h4 class="mb-4 fw-bold" data-aos="fade-left">All Products <span class="text-muted small" id="product-count">(20 Results)</span></h4>
+                    
+                    <div class="row g-4" id="product-grid">
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="smartphone" data-series="pro-max" data-price-range="mid" data-features="creators 5G"
+                            data-display="6.7\" AMOLED data-camera="200MP" data-battery="4800mAh" data-storage="256GB" data-ram="12GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new">NEW</span>
+                                <img src="TechVision Pro X.jpeg" class="card-img-top" alt="TechVision Pro X">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Pro X</h5>
+                                    <p class="card-text text-muted small flex-grow-1">200MP camera, 120Hz display, Quantum chip.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$999</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="SP-01">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="SP-01" 
+                                                data-name="TechVision Pro X" 
+                                                data-price="999.00" 
+                                                data-image="TechVision Pro X.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="smartphone" data-series="lite" data-price-range="low" data-features="5G"
+                            data-display="6.5\" LCD data-camera="50MP" data-battery="5000mAh" data-storage="128GB" data-ram="6GB">
+                            <div class="card product-card h-100">
+                                <img src="TechVision Lite 5G.jpeg" class="card-img-top" alt="TechVision Lite 5G">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Lite 5G</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Affordable package, all-day battery life and 5G.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$449</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="SP-02">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="SP-02" 
+                                                data-name="TechVision Lite 5G" 
+                                                data-price="449.00" 
+                                                data-image="TechVision Lite 5G.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="smartphone" data-series="pro-max" data-price-range="high" data-features="creators 5G"
+                            data-display="6.9\" Dynamic AMOLED data-camera="150MP" data-battery="5200mAh" data-storage="1TB" data-ram="16GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #e91e63;">ULTRA</span>
+                                <img src="TechVision Max.jpeg" class="card-img-top" alt="TechVision Max">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Max</h5>
+                                    <p class="card-text text-muted small flex-grow-1">7-inch pro display, stylus support, 1TB storage.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$1299</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="SP-03">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="SP-03" 
+                                                data-name="TechVision Max" 
+                                                data-price="1299.00" 
+                                                data-image="TechVision Max.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="laptop" data-series="pro-max" data-price-range="high" data-features="creators"
+                            data-display="16\" 4K OLED data-camera="None" data-battery="12 Hrs" data-storage="2TB SSD" data-ram="32GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #e91e63;">PRO MAX</span>
+                                <img src="TechVision Book Pro Max.jpeg" class="card-img-top" alt="TechVision Book Pro Max">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Book Pro Max</h5>
+                                    <p class="card-text text-muted small flex-grow-1">4K display, 32GB RAM, dedicated graphics.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$1899</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="LP-01">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="LP-01" 
+                                                data-name="TechVision Book Pro Max" 
+                                                data-price="1899.00" 
+                                                data-image="TechVision Book Pro Max.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="laptop" data-series="lite" data-price-range="mid" data-features=""
+                            data-display="15.6\" FHD LED data-camera="None" data-battery="10 Hrs" data-storage="512GB SSD" data-ram="8GB">
+                            <div class="card product-card h-100">
+                                <img src="TechVision Book A15.jpeg" class="card-img-top" alt="TechVision Book A15">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Book A15</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Lightweight, reliable, perfect for students.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$699</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="LP-02">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="LP-02" 
+                                                data-name="TechVision Book A15" 
+                                                data-price="699.00" 
+                                                data-image="TechVision Book A15.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="laptop" data-series="fold" data-price-range="high" data-features="creators"
+                            data-display="14\" QHD Touch data-camera="None" data-battery="14 Hrs" data-storage="1TB SSD" data-ram="16GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #ff9800;">2-IN-1</span>
+                                <img src="TechVision Book Flex 360.jpeg" class="card-img-top" alt="TechVision Book Flex 360">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Book Flex 360</h5>
+                                    <p class="card-text text-muted small flex-grow-1">2-in-1 convertible, touch screen, stylus support.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$1499</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="LP-03">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="LP-03" 
+                                                data-name="TechVision Book Flex 360" 
+                                                data-price="1499.00" 
+                                                data-image="TechVision Book Flex 360.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="laptop" data-series="pro-max" data-price-range="high" data-features="creators 5G"
+                            data-display="17.3\" 144Hz data-camera="None" data-battery="8 Hrs" data-storage="1TB SSD + 2TB HDD" data-ram="64GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #ff5722;">GAMING</span>
+                                <img src="TechVision Gaming X1.jpeg" class="card-img-top" alt="TechVision Gaming X1">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Gaming X1</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Overclocked CPU, dedicated GPU, 5G connectivity.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$2499</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="LP-04">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="LP-04" 
+                                                data-name="TechVision Gaming X1" 
+                                                data-price="2499.00" 
+                                                data-image="TechVision Gaming X1.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="watch" data-series="pro-max" data-price-range="mid" data-features="5G waterproof"
+                            data-display="1.9\" AMOLED data-camera="None" data-battery="72 Hrs" data-storage="32GB" data-ram="2GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #4caf50;">OUTDOOR</span>
+                                <img src="TechVision Watch Ultra.jpeg" class="card-img-top" alt="TechVision Watch Ultra">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Watch Ultra</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Rugged, cellular connectivity, advanced health.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$599</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="WT-01">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="WT-01" 
+                                                data-name="TechVision Watch Ultra" 
+                                                data-price="599.00" 
+                                                data-image="TechVision Watch Ultra.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="watch" data-series="lite" data-price-range="low" data-features="waterproof"
+                            data-display="1.4\" LCD data-camera="None" data-battery="7 days" data-storage="8GB" data-ram="512MB">
+                            <div class="card product-card h-100">
+                                <img src="TechVision Watch Sport A5.jpeg" class="card-img-top" alt="TechVision Watch Sport A5">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Watch Sport A5</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Essential fitness tracking, lightweight, water-resistant.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$249</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="WT-02">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="WT-02" 
+                                                data-name="TechVision Watch Sport A5" 
+                                                data-price="249.00" 
+                                                data-image="TechVision Watch Sport A5.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="watch" data-series="pro-max" data-price-range="mid" data-features="5G waterproof"
+                            data-display="1.6\" AMOLED data-camera="None" data-battery="48 Hrs" data-storage="16GB" data-ram="1.5GB">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #000000;">CLASSIC</span>
+                                <img src="TechVision Watch Classic 6.jpeg" class="card-img-top" alt="TechVision Watch Classic 6">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Watch Classic 6</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Elegant, rotating bezel, full 5G cellular.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$499</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="WT-03">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="WT-03" 
+                                                data-name="TechVision Watch Classic 6" 
+                                                data-price="499.00" 
+                                                data-image="TechVision Watch Classic 6.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="watch" data-series="lite" data-price-range="low" data-features=""
+                            data-display="0.95\" OLED data-camera="None" data-battery="14 days" data-storage="64MB" data-ram="1MB">
+                            <div class="card product-card h-100">
+                                <img src="TechVision Fit Band.jpeg" class="card-img-top" alt="TechVision Fit Band">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Fit Band</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Simple activity tracking, basic notifications.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$99</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="WT-04">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="WT-04" 
+                                                data-name="TechVision Fit Band" 
+                                                data-price="99.00" 
+                                                data-image="TechVision Fit Band.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="earbud" data-series="pro-max" data-price-range="mid" data-features="creators"
+                            data-display="None" data-camera="None" data-battery="10 Hrs ANC" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #e91e63;">ANC</span>
+                                <img src="TechVision Buds Pro.jpeg" class="card-img-top" alt="TechVision Buds Pro">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Buds Pro</h5>
+                                    <p class="card-text text-muted small flex-grow-1">ANC, crystal clear audio, 10-hour battery life.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$199</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="EB-01">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="EB-01" 
+                                                data-name="TechVision Buds Pro" 
+                                                data-price="199.00" 
+                                                data-image="TechVision Buds Pro.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="earbud" data-series="lite" data-price-range="low" data-features=""
+                            data-display="None" data-camera="None" data-battery="6 Hrs" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <img src="TechVision Buds Lite.jpeg" class="card-img-top" alt="TechVision Buds Lite">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Buds Lite</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Affordable, reliable wireless earbuds.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$69</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="EB-02">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="EB-02" 
+                                                data-name="TechVision Buds Lite" 
+                                                data-price="69.00" 
+                                                data-image="TechVision Buds Lite.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="earbud" data-series="lite" data-price-range="low" data-features="waterproof"
+                            data-display="None" data-camera="None" data-battery="8 Hrs" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #2196f3;">SPORT</span>
+                                <img src="TechVision Sport Pods.jpeg" class="card-img-top" alt="TechVision Sport Pods">
+                            
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Sport Pods</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Sweat-proof, secure-fit, built for workouts.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$129</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="EB-03">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="EB-03" 
+                                                data-name="TechVision Sport Pods" 
+                                                data-price="129.00" 
+                                                data-image="TechVision Sport Pods.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="earbud" data-series="pro-max" data-price-range="mid" data-features="creators"
+                            data-display="None" data-camera="None" data-battery="20 Hrs (Headphones)" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #000000;">STUDIO</span>
+                                <img src="TechVision Studio Max.jpeg" class="card-img-top" alt="TechVision Studio Max">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">TechVision Studio Max</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Professional over-ear headphones, superior sound.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$299</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="EB-04">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="EB-04" 
+                                                data-name="TechVision Studio Max" 
+                                                data-price="299.00" 
+                                                data-image="TechVision Studio Max.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="accessory" data-series="lite" data-price-range="low" data-features=""
+                            data-display="None" data-camera="None" data-battery="None" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <img src="Phone Case Armor.jpeg" class="card-img-top" alt="Phone Case Armor">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Phone Case Armor</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Heavy-duty protection case.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$25</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="AC-01">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="AC-01" 
+                                                data-name="Phone Case Armor" 
+                                                data-price="25.00" 
+                                                data-image="Phone Case Armor.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="150"
+                            data-category="accessory" data-series="pro-max" data-price-range="low" data-features=""
+                            data-display="None" data-camera="None" data-battery="None" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <img src="Fast Charge Pad.jpeg" class="card-img-top" alt="Fast Charge Pad">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Fast Charge Pad</h5>
+                                    <p class="card-text text-muted small flex-grow-1">15W wireless charging pad.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$49</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="AC-02">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="AC-02" 
+                                                data-name="Fast Charge Pad" 
+                                                data-price="49.00" 
+                                                data-image="Fast Charge Pad.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="250"
+                            data-category="accessory" data-series="pro-max" data-price-range="low" data-features="creators"
+                            data-display="None" data-camera="None" data-battery="None" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <span class="tag-new" style="background: #1976d2;">CREATOR</span>
+                                <img src="Smart Pen Pro.jpeg" class="card-img-top" alt="Smart Pen Pro">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Smart Pen Pro</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Pressure-sensitive stylus, ideal for designers.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$99</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="AC-03">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="AC-03" 
+                                                data-name="Smart Pen Pro" 
+                                                data-price="99.00" 
+                                                data-image="Smart Pen Pro.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 product-item" data-aos="fade-up" data-aos-delay="50"
+                            data-category="accessory" data-series="lite" data-price-range="low" data-features=""
+                            data-display="None" data-camera="None" data-battery="None" data-storage="None" data-ram="None">
+                            <div class="card product-card h-100">
+                                <img src="Laptop Travel Hub.jpeg" class="card-img-top" alt="Laptop Travel Hub">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Laptop Travel Hub</h5>
+                                    <p class="card-text text-muted small flex-grow-1">Compact USB-C docking station with multiple ports.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 card-actions">
+                                        <span class="price-tag">$79</span>
+                                        <div>
+                                            <a href="#" class="btn btn-outline-secondary btn-sm me-2 compare-btn" data-product-id="AC-04">Compare</a>
+                                            <a href="#" class="btn btn-tech-primary add-to-cart-btn"
+                                                data-product-id="AC-04" 
+                                                data-name="Laptop Travel Hub" 
+                                                data-price="79.00" 
+                                                data-image="Laptop Travel Hub.jpeg">
+                                                Add to Cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="cartModalLabel"><i class="bi bi-bag-fill me-2"></i> Your Shopping Cart</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items-container">
+                        <p class="text-muted text-center" id="empty-cart-message">Your cart is empty.</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <span class="text-uppercase fw-bold">Cart Total:</span>
+                        <span class="cart-total" id="cart-total-display">$0.00</span>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-danger" id="clear-cart-btn">Clear Cart</button>
+                    <a href="checkout.html" class="btn btn-tech-primary fw-bold" id="checkout-btn">
+                        Proceed to Checkout
+                        <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="compareModalLabel"><i class="bi bi-columns-gap me-2"></i> Product Comparison</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0 compare-table">
+                            <tbody id="comparison-table-body">
+                                <tr id="compare-placeholder">
+                                    <td colspan="4" class="text-center p-5 text-muted">
+                                        <i class="bi bi-info-circle fs-3 mb-2 d-block"></i>
+                                        Add up to 3 products to the comparison list by clicking the "Compare" button on any product card.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" id="clear-compare-btn">Clear Comparison</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // 3. ADDED: AOS Initialization
+        AOS.init({
+            duration: 600, // Animation duration
+            once: true, // Animation only happens once per element
+            offset: 50 // Trigger animation 100px before element is in view
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const productItems = document.querySelectorAll('.product-item');
+            const filterCheckboxes = document.querySelectorAll('.filter-check');
+            const productCountSpan = document.getElementById('product-count');
+            const categoryLinks = document.querySelectorAll('.filter-category-link');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            
+            // Cart Elements
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartCountSpan = document.getElementById('cart-count');
+            const cartTotalDisplay = document.getElementById('cart-total-display');
+            const checkoutButton = document.getElementById('checkout-btn');
+            const clearCartButton = document.getElementById('clear-cart-btn');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+
+            // Compare Elements
+            const compareButtons = document.querySelectorAll('.compare-btn');
+            const compareCountSpan = document.getElementById('compare-count');
+            const clearCompareBtn = document.getElementById('clear-compare-btn');
+            const comparisonTableBody = document.getElementById('comparison-table-body');
+            const comparePlaceholder = document.getElementById('compare-placeholder');
+            
+            // Utility to get all product data from the page (used for comparison)
+            const allProductsData = Array.from(productItems).map(item => ({
+                id: item.dataset.productId || item.querySelector('.add-to-cart-btn').dataset.productId,
+                name: item.querySelector('.card-title').textContent,
+                price: parseFloat(item.querySelector('.price-tag').textContent.replace('$', '')),
+                image: item.querySelector('.card-img-top').src,
+                category: item.dataset.category,
+                // Gather all comparison-relevant data-* attributes
+                display: item.dataset.display || 'N/A',
+                camera: item.dataset.camera || 'N/A',
+                battery: item.dataset.battery || 'N/A',
+                storage: item.dataset.storage || 'N/A',
+                ram: item.dataset.ram || 'N/A',
+                features: item.dataset.features || 'N/A'
+            }));
+
+
+            // ===================================
+            // --- CART LOGIC ---
+            // ===================================
+
+            /** Retrieves cart array from localStorage, or an empty array if none exists. */
+            function getCart() {
+                const cartJson = localStorage.getItem('shoppingCart');
+                return cartJson ? JSON.parse(cartJson) : [];
+            }
+
+            /** Saves the current cart array back to localStorage. */
+            function saveCart(cart) {
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+
+            /** Adds or increments a product in the cart. */
+            function addToCart(productData) {
+                let cart = getCart();
+                const existingItem = cart.find(item => item.id === productData.id);
+
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ 
+                        id: productData.id,
+                        name: productData.name,
+                        price: parseFloat(productData.price),
+                        image: productData.image,
+                        quantity: 1
+                    });
+                }
+
+                saveCart(cart);
+                // Optional: Show a brief success message (e.g., using Bootstrap Toast)
+            }
+
+            /** Removes one unit of a product or removes it entirely if quantity is 1. */
+            function removeFromCart(productId) {
+                let cart = getCart();
+                const itemIndex = cart.findIndex(item => item.id === productId);
+
+                if (itemIndex > -1) {
+                    if (cart[itemIndex].quantity > 1) {
+                        cart[itemIndex].quantity -= 1;
+                    } else {
+                        cart.splice(itemIndex, 1); // Remove item completely
+                    }
+                }
+                saveCart(cart);
+                renderCartItems(); // Re-render modal immediately
+            }
+            
+            /** Clears all items from the cart. */
+            function clearCart() {
+                saveCart([]);
+                renderCartItems();
+            }
+
+            /** Updates the cart count badge and total. */
+            function updateCartDisplay() {
+                const cart = getCart();
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                let totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                
+                cartCountSpan.textContent = totalItems;
+                cartTotalDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+                
+                // Toggle checkout button and empty message visibility
+                checkoutButton.classList.toggle('disabled', totalItems === 0);
+                clearCartButton.classList.toggle('disabled', totalItems === 0);
+            }
+
+            /** Renders the list of items in the cart modal. */
+            function renderCartItems() {
+                const cart = getCart();
+                cartItemsContainer.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                    cartItemsContainer.appendChild(emptyCartMessage);
+                    updateCartDisplay();
+                    return;
+                }
+
+                emptyCartMessage.style.display = 'none';
+
+                cart.forEach(item => {
+                    const itemTotal = (item.price * item.quantity).toFixed(2);
+                    const itemHtml = `
+                        <div class="row cart-item align-items-center">
+                            <div class="col-2">
+                                <img src="${item.image}" alt="${item.name}" class="img-fluid rounded" style="max-height: 50px; object-fit: contain;">
+                            </div>
+                            <div class="col-4">
+                                <strong>${item.name}</strong>
+                            </div>
+                            <div class="col-3 text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button class="btn btn-sm btn-outline-secondary me-1 remove-from-cart-btn" data-product-id="${item.id}">-</button>
+                                    <span class="mx-1">${item.quantity}</span>
+                                    <button class="btn btn-sm btn-outline-secondary ms-1 add-one-btn" data-product-id="${item.id}">+</button>
+                                </div>
+                            </div>
+                            <div class="col-3 text-end fw-bold text-dark">
+                                $${itemTotal}
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
+                });
+
+                // Re-attach event listeners for +/- buttons after rendering
+                document.querySelectorAll('.remove-from-cart-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        removeFromCart(btn.dataset.productId);
+                    });
+                });
+                
+                document.querySelectorAll('.add-one-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const id = btn.dataset.productId;
+                        const product = getCart().find(item => item.id === id);
+                        if (product) {
+                            // Find product data from the page to use for the addToCart function
+                            const productData = allProductsData.find(p => p.id === id);
+                            if (productData) {
+                                addToCart(productData);
+                                renderCartItems(); // Re-render modal immediately
+                            }
+                        }
+                    });
+                });
+
+                updateCartDisplay();
+            }
+
+
+            // ===================================
+            // --- COMPARE LOGIC ---
+            // ===================================
+
+            let compareList = [];
+
+            /** Updates the compare count badge. */
+            function updateCompareCount() {
+                compareCountSpan.textContent = compareList.length;
+
+                // Update "Compare" button states
+                compareButtons.forEach(btn => {
+                    const id = btn.dataset.productId;
+                    const isComparing = compareList.some(item => item.id === id);
+                    const isFull = compareList.length >= 3 && !isComparing;
+
+                    btn.classList.toggle('active', isComparing);
+                    btn.classList.toggle('btn-success', isComparing);
+                    btn.classList.toggle('btn-outline-secondary', !isComparing);
+                    btn.textContent = isComparing ? 'Comparing' : 'Compare';
+                    
+                    // Disable buttons if list is full and the item isn't already selected
+                    if (isFull) {
+                        btn.classList.add('disabled');
+                    } else if (!isComparing) {
+                        btn.classList.remove('disabled');
+                    }
+                });
+            }
+
+            /** Toggles a product in the compare list. */
+            function toggleCompare(productId) {
+                const existingIndex = compareList.findIndex(item => item.id === productId);
+
+                if (existingIndex > -1) {
+                    // Remove from list
+                    compareList.splice(existingIndex, 1);
+                } else if (compareList.length < 3) {
+                    // Add to list (max 3)
+                    const productData = allProductsData.find(p => p.id === productId);
+                    if (productData) {
+                        compareList.push(productData);
+                    }
+                }
+                
+                updateCompareCount();
+            }
+            
+            /** Clears all items from the compare list. */
+            function clearCompareList() {
+                compareList = [];
+                updateCompareCount();
+                renderComparisonTable();
+            }
+
+            /** Renders the comparison table in the modal. */
+            function renderComparisonTable() {
+                comparisonTableBody.innerHTML = '';
+                
+                if (compareList.length === 0) {
+                    comparisonTableBody.appendChild(comparePlaceholder);
+                    clearCompareBtn.classList.add('disabled');
+                    return;
+                }
+
+                clearCompareBtn.classList.remove('disabled');
+                
+                // 1. Header Row (Images and Titles)
+                let headerRow = '<tr><th>Product</th>';
+                compareList.forEach(item => {
+                    headerRow += `
+                        <td class="text-center">
+                            <img src="${item.image}" alt="${item.name}" class="img-fluid mb-2">
+                            <h6 class="fw-bold">${item.name}</h6>
+                            <button class="btn btn-sm btn-outline-danger remove-compare-btn" data-product-id="${item.id}">Remove</button>
+                        </td>
+                    `;
+                });
+                headerRow += '</tr>';
+                comparisonTableBody.insertAdjacentHTML('beforeend', headerRow);
+
+                // 2. Price Row
+                let priceRow = '<tr><th>Price</th>';
+                compareList.forEach(item => {
+                    priceRow += `<td class="text-center"><span class="fs-5 fw-bold text-primary">$${item.price.toFixed(2)}</span>`;
+                });
+                priceRow += '</tr>';
+                comparisonTableBody.insertAdjacentHTML('beforeend', priceRow);
+
+                // 3. Key Specs Rows (Dynamically pulled from data-* attributes)
+                const specs = ['display', 'camera', 'battery', 'storage', 'ram', 'features'];
+                const displayNames = {
+                    display: 'Display Size/Type',
+                    camera: 'Main Camera',
+                    battery: 'Battery Life',
+                    storage: 'Storage',
+                    ram: 'RAM/Memory',
+                    features: 'Key Features'
+                };
+                
+                specs.forEach(specKey => {
+                    let specRow = `<tr><th>${displayNames[specKey]}</th>`;
+                    compareList.forEach(item => {
+                        specRow += `<td>${item[specKey]}</td>`;
+                    });
+                    specRow += '</tr>';
+                    comparisonTableBody.insertAdjacentHTML('beforeend', specRow);
+                });
+                
+                // 4. Action Row (Add to Cart)
+                 let actionRow = '<tr><th>Actions</th>';
+                 compareList.forEach(item => {
+                    actionRow += `
+                        <td class="text-center">
+                            <a href="#" class="btn btn-tech-primary btn-sm add-to-cart-btn"
+                                data-product-id="${item.id}" 
+                                data-name="${item.name}" 
+                                data-price="${item.price.toFixed(2)}" 
+                                data-image="${item.image}">
+                                <i class="bi bi-cart-fill me-1"></i> Add to Cart
+                            </a>
+                        </td>
+                    `;
+                });
+                actionRow += '</tr>';
+                comparisonTableBody.insertAdjacentHTML('beforeend', actionRow);
+
+
+                // Re-attach event listeners for newly created elements inside the modal
+                document.querySelectorAll('.remove-compare-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        toggleCompare(btn.dataset.productId);
+                        renderComparisonTable(); // Re-render after removing
+                    });
+                });
+                
+                // Re-attach listener for 'Add to Cart' inside modal
+                document.querySelectorAll('#compareModal .add-to-cart-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const productData = allProductsData.find(p => p.id === button.dataset.productId);
+                        if (productData) {
+                            addToCart(productData);
+                            // Optionally close modal or give confirmation
+                            // const modal = bootstrap.Modal.getInstance(document.getElementById('compareModal'));
+                            // modal.hide(); 
+                            alert(`${productData.name} added to cart!`);
+                        }
+                    });
+                });
+            }
+
+
+            // ===================================
+            // --- EVENT LISTENERS ---
+            // ===================================
+
+            // 1. Cart Listeners
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const productData = {
+                        id: button.dataset.productId,
+                        name: button.dataset.name,
+                        price: button.dataset.price,
+                        image: button.dataset.image
+                    };
+                    addToCart(productData);
+                });
+            });
+            clearCartButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearCart();
+            });
+            const cartModal = document.getElementById('cartModal');
+            cartModal.addEventListener('show.bs.modal', renderCartItems);
+            
+            
+            // 2. Compare Listeners
+            compareButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleCompare(button.dataset.productId);
+                });
+            });
+            
+            clearCompareBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearCompareList();
+            });
+
+            const compareModal = document.getElementById('compareModal');
+            compareModal.addEventListener('show.bs.modal', renderComparisonTable);
+            
+            
+            // 3. General Filtering Logic (from previous step)
+            function applyFilters() {
+                // ... (Filter logic is here, but truncated for brevity) ...
+                const activeCategories = new Set();
+                const activeSeries = new Set();
+                const activePriceRanges = new Set();
+                const activeFeatures = new Set();
+                
+                filterCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        const filterType = checkbox.dataset.filterType;
+                        if (filterType === 'category') {
+                            activeCategories.add(checkbox.value);
+                        } else if (filterType === 'series') {
+                            activeSeries.add(checkbox.value);
+                        } else if (filterType === 'price') {
+                            activePriceRanges.add(checkbox.value);
+                        } else if (filterType === 'feature') {
+                            activeFeatures.add(checkbox.value);
+                        }
+                    }
+                });
+
+                let visibleCount = 0;
+
+                productItems.forEach(item => {
+                    const itemCategory = item.dataset.category;
+                    const itemSeries = item.dataset.series;
+                    const itemPriceRange = item.dataset.priceRange;
+                    const itemFeatures = item.dataset.features ? item.dataset.features.split(' ').filter(f => f) : [];
+
+                    const passesCategory = activeCategories.size === 0 || activeCategories.has(itemCategory);
+                    const passesSeries = activeSeries.size === 0 || activeSeries.has(itemSeries);
+                    const passesPrice = activePriceRanges.size === 0 || activePriceRanges.has(itemPriceRange);
+
+                    let passesFeatures = true;
+                    if (activeFeatures.size > 0) {
+                        for (let feature of activeFeatures) {
+                            if (!itemFeatures.includes(feature)) {
+                                passesFeatures = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (passesCategory && passesSeries && passesPrice && passesFeatures) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                productCountSpan.textContent = `(${visibleCount} Results)`;
+            }
+
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetCategory = link.dataset.targetCategory;
+
+                    document.querySelectorAll('[data-filter-type="category"]').forEach(cb => {
+                        cb.checked = false;
+                    });
+
+                    const targetCheckbox = document.getElementById(`cat${targetCategory.charAt(0).toUpperCase() + targetCategory.slice(1)}`);
+                    if (targetCheckbox) {
+                        targetCheckbox.checked = true;
+                    }
+
+                    applyFilters();
+                    document.getElementById('product-grid').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+
+            // 4. Initial page load
+            applyFilters();
+            updateCartDisplay(); 
+            updateCompareCount();
+        });
+    </script>
+</body>
+</html>

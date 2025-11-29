@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Checkout</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+    <!-- Load AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #1976d2;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            background-color: rgba(25, 118, 210, 0.2);
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(25, 118, 210, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Custom styling for inputs */
+        .form-input {
+            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150;
+        }
+        
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+        
+        /* Enhanced button animation */
+        .submit-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Shipping option animation */
+        .shipping-option {
+            transition: all 0.3s ease;
+        }
+        
+        .shipping-option:hover {
+            transform: translateX(4px);
+        }
+        
+        /* Card icons animation */
+        .card-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .card-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<div class="min-h-screen p-4 sm:p-8 md:p-10">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center sm:text-left" data-aos="fade-down">
+            Secure Checkout
+        </h1>
+
+        <div class="lg:flex lg:space-x-10">
+            
+            <!-- Left Column: Checkout Form -->
+            <div class="lg:w-8/12 space-y-8">
+
+                <!-- Step 1: Shipping Details -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">1. Shipping Details</h2>
+                    <form id="checkout-form">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div data-aos="fade-right" data-aos-delay="150">
+                                <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="first-name" class="form-input" required placeholder="Enter Your First Name:">
+                            </div>
+                            <div data-aos="fade-left" data-aos-delay="150">
+                                <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="last-name" class="form-input" required placeholder="Enter Your Last Name:">
+                            </div>
+                        </div>
+
+                        <div class="mt-4" data-aos="fade-up" data-aos-delay="200">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" class="form-input" required placeholder="john.doe@example.com">
+                        </div>
+                        
+                        <div class="mt-4" data-aos="fade-up" data-aos-delay="250">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="Enter Your Phone Number:">
+                        </div>
+
+                        <div class="mt-6 border-t pt-6" data-aos="fade-up" data-aos-delay="300">
+                            <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                            <input type="text" id="address" class="form-input" required placeholder="Enter Your Address:">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div data-aos="fade-up" data-aos-delay="350">
+                                <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" id="city" class="form-input" required placeholder="Cityville">
+                            </div>
+                            <div data-aos="fade-up" data-aos-delay="400">
+                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State / Province</label>
+                                <input type="text" id="state" class="form-input" required placeholder="CA">
+                            </div>
+                            <div data-aos="fade-up" data-aos-delay="450">
+                                <label for="zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                <input type="text" id="zip" class="form-input" required placeholder="90210">
+                            </div>
+                        </div>
+
+                        <div class="mt-4" data-aos="fade-up" data-aos-delay="500">
+                            <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                            <select id="country" class="form-input" required>
+                                <option value="">Select a country</option>
+                                <option value="PAK" selected>PAKISTAN</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                            </select>
+                        </div>
+                </div>
+
+                <!-- Step 2: Shipping Method -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">2. Shipping Method</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Option 1: Standard Shipping -->
+                        <div class="shipping-option flex items-start p-4 border border-blue-200 rounded-lg cursor-pointer bg-blue-50 hover:bg-blue-100 transition duration-200" data-aos="zoom-in" data-aos-delay="250">
+                            <input type="radio" id="standard-shipping" name="shipping-method" value="standard" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" checked>
+                            <div class="ml-3 flex-1">
+                                <label for="standard-shipping" class="text-base font-medium text-gray-800 cursor-pointer">Standard Shipping (5-7 business days)</label>
+                                <p class="text-sm text-gray-500">$5.00</p>
+                            </div>
+                        </div>
+
+                        <!-- Option 2: Express Shipping -->
+                        <div class="shipping-option flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition duration-200" data-aos="zoom-in" data-aos-delay="300">
+                            <input type="radio" id="express-shipping" name="shipping-method" value="express" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            <div class="ml-3 flex-1">
+                                <label for="express-shipping" class="text-base font-medium text-gray-800 cursor-pointer">Express Shipping (1-2 business days)</label>
+                                <p class="text-sm text-gray-500 font-semibold">$19.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Information -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">3. Payment Information</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 mb-4" data-aos="fade-right" data-aos-delay="350">
+                            <img src="https://placehold.co/50x30/2E8BC9/FFFFFF?text=VISA" alt="Visa" class="h-6 rounded card-icon">
+                            <img src="https://placehold.co/50x30/0071C5/FFFFFF?text=MC" alt="MasterCard" class="h-6 rounded card-icon">
+                            <img src="https://placehold.co/50x30/FF9900/FFFFFF?text=Amex" alt="Amex" class="h-6 rounded card-icon">
+                        </div>
+                        
+                        <!-- Credit Card Number -->
+                        <div data-aos="fade-up" data-aos-delay="400">
+                            <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                            <input type="text" id="card-number" class="form-input" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                        </div>
+
+                        <!-- Card Holder Name -->
+                        <div class="mt-4" data-aos="fade-up" data-aos-delay="450">
+                            <label for="card-holder" class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+                            <input type="text" id="card-holder" class="form-input" required placeholder="John A. Doe">
+                        </div>
+                        
+                        <!-- Expiry and CVC -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="col-span-2" data-aos="fade-right" data-aos-delay="500">
+                                <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-1">Expiration Date (MM/YY)</label>
+                                <input type="text" id="expiry-date" class="form-input" required placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div data-aos="fade-left" data-aos-delay="500">
+                                <label for="cvc" class="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                                <input type="text" id="cvc" class="form-input" required placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <!-- /End of Left Column -->
+
+            <!-- Right Column: Order Summary -->
+            <div class="lg:w-4/12 mt-8 lg:mt-0">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-2xl sticky top-8" data-aos="fade-left" data-aos-delay="100">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">Order Summary</h2>
+                    
+                    <!-- Item List -->
+                    <div class="space-y-4 border-b pb-4 mb-4">
+                        <div class="flex justify-between items-start" data-aos="fade-up" data-aos-delay="150">
+                            <div class="text-sm text-gray-600">
+                                <p class="font-medium text-gray-900">TechVision Pro Laptop</p>
+                                <p>Qty: 1</p>
+                            </div>
+                            <span class="font-semibold text-gray-900">$1,499.00</span>
+                        </div>
+                        <div class="flex justify-between items-start" data-aos="fade-up" data-aos-delay="200">
+                            <div class="text-sm text-gray-600">
+                                <p class="font-medium text-gray-900">Wireless Noise-Cancelling Headphones</p>
+                                <p>Qty: 2</p>
+                            </div>
+                            <span class="font-semibold text-gray-900">$398.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Subtotals -->
+                    <div class="space-y-3 text-gray-700 border-b pb-4 mb-4" data-aos="fade-up" data-aos-delay="250">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span id="subtotal-amount" class="font-medium">$1,897.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Shipping</span>
+                            <span id="shipping-amount" class="font-medium">$5.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Tax (8%)</span>
+                            <span id="tax-amount" class="font-medium">$151.76</span>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="flex justify-between items-center text-xl font-bold text-gray-900" data-aos="fade-up" data-aos-delay="300">
+                        <span>Order Total</span>
+                        <span id="total-amount">$2,053.76</span>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button type="submit" class="submit-button w-full mt-8 py-4 bg-blue-600 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-blue-700 transition duration-200 transform hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="350">
+                        Place Order
+                    </button>
+                    </form>
+                    
+                    <!-- Display success/error messages here -->
+                    <div id="message-box" class="mt-4 text-center text-sm font-medium hidden"></div>
+
+                </div>
+            </div>
+            <!-- /End of Right Column -->
+
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100
+    });
+
+    // Custom Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+    });
+
+    // Hover effects on interactive elements
+    const hoverElements = document.querySelectorAll('input, select, button, label, .shipping-option, .card-icon');
+    
+    hoverElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            cursor.style.backgroundColor = 'rgba(25, 118, 210, 0.5)';
+            cursor.style.borderColor = '#1976d2';
+            
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            cursorFollower.style.borderColor = '#1976d2';
+            cursorFollower.style.backgroundColor = 'rgba(25, 118, 210, 0.1)';
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursor.style.backgroundColor = 'rgba(25, 118, 210, 0.2)';
+            cursor.style.borderColor = '#1976d2';
+            
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorFollower.style.borderColor = 'rgba(25, 118, 210, 0.3)';
+            cursorFollower.style.backgroundColor = 'transparent';
+        });
+    });
+
+    // Checkout functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('checkout-form');
+        const shippingRadios = document.querySelectorAll('input[name="shipping-method"]');
+        const shippingAmountElement = document.getElementById('shipping-amount');
+        const taxAmountElement = document.getElementById('tax-amount');
+        const totalAmountElement = document.getElementById('total-amount');
+        const messageBox = document.getElementById('message-box');
+        
+        // Mock fixed amounts (in cents for safe calculation)
+        const SUBTOTAL_CENTS = 189700; // $1,897.00
+        const TAX_RATE = 0.08;
+        const SHIPPING_RATES = {
+            'standard': 500,  // $5.00
+            'express': 1999   // $19.99
+        };
+
+        // Helper function to format cents to dollars
+        const formatCurrency = (cents) => `$${(cents / 100).toFixed(2)}`;
+
+        // Function to calculate and update totals
+        const updateTotals = () => {
+            const selectedShipping = document.querySelector('input[name="shipping-method"]:checked').value;
+            const shippingCents = SHIPPING_RATES[selectedShipping];
+            
+            // Calculate tax on subtotal
+            const taxCents = Math.round(SUBTOTAL_CENTS * TAX_RATE);
+            
+            // Calculate total
+            const totalCents = SUBTOTAL_CENTS + shippingCents + taxCents;
+
+            // Update DOM elements with animation
+            shippingAmountElement.style.transform = 'scale(1.1)';
+            taxAmountElement.style.transform = 'scale(1.1)';
+            totalAmountElement.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                shippingAmountElement.textContent = formatCurrency(shippingCents);
+                taxAmountElement.textContent = formatCurrency(taxCents);
+                totalAmountElement.textContent = formatCurrency(totalCents);
+                
+                shippingAmountElement.style.transform = 'scale(1)';
+                taxAmountElement.style.transform = 'scale(1)';
+                totalAmountElement.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Highlight the selected shipping option
+            shippingRadios.forEach(radio => {
+                const parent = radio.closest('div');
+                if (radio.checked) {
+                    parent.classList.add('bg-blue-50', 'border-blue-200');
+                    parent.classList.remove('bg-gray-50', 'border-gray-200', 'hover:bg-gray-50');
+                } else {
+                    parent.classList.remove('bg-blue-50', 'border-blue-200');
+                    parent.classList.add('border-gray-200', 'hover:bg-gray-50');
+                }
+            });
+        };
+
+        // Event listeners for shipping method change
+        shippingRadios.forEach(radio => {
+            radio.addEventListener('change', updateTotals);
+        });
+
+        // Card number formatting
+        const cardNumberInput = document.getElementById('card-number');
+        cardNumberInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Expiry date formatting
+        const expiryInput = document.getElementById('expiry-date');
+        expiryInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Event listener for form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            messageBox.classList.remove('hidden', 'text-red-500', 'text-green-600');
+            
+            if (form.checkValidity()) {
+                // Mock processing delay
+                messageBox.classList.add('text-blue-600');
+                messageBox.textContent = "Processing order, please wait...";
+
+                setTimeout(() => {
+                    messageBox.classList.remove('text-blue-600');
+                    messageBox.classList.add('text-green-600');
+                    messageBox.textContent = '✅ Order successfully placed! Confirmation email sent.';
+                    
+                    // Animate success message
+                    messageBox.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        messageBox.style.transform = 'scale(1)';
+                    }, 200);
+                }, 2000); 
+
+            } else {
+                messageBox.classList.add('text-red-500');
+                messageBox.textContent = '❌ Please fill out all required fields correctly.';
+                messageBox.classList.remove('hidden');
+            }
+        });
+
+        // Add transition to amounts
+        [shippingAmountElement, taxAmountElement, totalAmountElement].forEach(el => {
+            el.style.transition = 'transform 0.2s ease';
+        });
+
+        // Initialize totals on load
+        updateTotals();
+    });
+</script>
+
+</body>
+</html>

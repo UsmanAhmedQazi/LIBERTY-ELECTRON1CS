@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechVision Electronics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #1976d2;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.1s ease;
+        transform: translate(-50%, -50%);
+        background-color: rgba(25, 118, 210, 0.2);
+    }
+
+    .cursor-follower {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(25, 118, 210, 0.3);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transition: all 0.3s ease;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Navigation */
+header {
+    background: #0a1929;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1976d2;
+    letter-spacing: 1px;
+    transition: transform 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    color: #e3f2fd !important;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 15px !important;
+    transition: all 0.3s;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.nav-link:hover {
+    background: rgba(25, 118, 210, 0.1);
+    color: #1976d2 !important;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #1976d2 !important;
+    background: rgba(25, 118, 210, 0.1);
+    font-weight: 700;
+}
+
+.navbar-toggler {
+    border: 1px solid #1976d2;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: all 0.3s;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2825, 118, 210, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background: #0d2137;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+}
+
+    /* Carousel Enhancements */
+    .carousel-slide {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        padding: 80px 0;
+    }
+
+    .carousel-item {
+        /* This is key for smoother transition, slightly longer than default */
+        transition: transform 0.8s ease-in-out; 
+    }
+
+    /* Custom Fade-in-Up for Carousel Content */
+    .carousel-item.active .container > .row > div {
+        animation-name: fadeInUp;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 40px, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    /* Staggering the animation */
+    .carousel-item.active .col-lg-6:first-child h1 { animation-delay: 0.1s; }
+    .carousel-item.active .col-lg-6:first-child p { animation-delay: 0.3s; }
+    .carousel-item.active .col-lg-6:first-child .d-flex { animation-delay: 0.5s; }
+    .carousel-item.active .col-lg-6:last-child i { animation-delay: 0.8s; }
+
+
+    .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        transition: all 0.3s;
+    }
+
+    .carousel-indicators button:hover {
+        transform: scale(1.3);
+    }
+
+    .carousel-indicators .active {
+        background-color: #1976d2;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Animated Icons in Carousel */
+    .carousel-slide i {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    /* Buttons */
+    .btn-tech-primary {
+        background: #1976d2;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 5px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-tech-primary:hover {
+        background: #1565c0;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(25, 118, 210, 0.4);
+    }
+
+    .btn-tech-outline {
+        border: 2px solid white;
+        color: white;
+        padding: 12px 30px;
+        font-weight: 600;
+        background: transparent;
+        border-radius: 5px;
+        transition: all 0.3s;
+    }
+
+    .btn-tech-outline:hover {
+        background: white;
+        color: #0a1929;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Product Cards (Adjusted for AOS) */
+    .card {
+        transition: all 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(25, 118, 210, 0.2) !important;
+    }
+
+    .card i {
+        transition: all 0.3s;
+    }
+
+    .card:hover i {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Why Choose Us Icons (Adjusted for AOS) */
+    .feature-icon {
+        transition: all 0.3s;
+    }
+
+    .feature-icon:hover {
+        transform: scale(1.1);
+    }
+
+    /* Special Offers Section */
+    .special-offers-section {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .special-offers-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.5;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+    }
+
+    /* Footer (Adjusted for AOS) */
+    footer {
+        background: #0a1929;
+        color: #e3f2fd;
+        padding: 50px 0 20px;
+    }
+
+    footer h4 {
+        color: #1976d2;
+        margin-bottom: 20px;
+    }
+
+    footer a {
+        color: #1976d2;
+        font-size: 1.3rem;
+        margin-right: 15px;
+        transition: all 0.3s;
+    }
+
+    footer a:hover {
+        color: #64b5f6;
+        transform: translateY(-3px) scale(1.1);
+    }
+
+    /* Section Headings */
+    .section-heading {
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #1976d2;
+    }
+
+    @media (max-width: 768px) {
+        .carousel-slide {
+            min-height: 70vh;
+            padding: 60px 0;
+        }
+
+        .display-2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+   <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand logo" href="index.html">Liberty Electronics</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">PRODUCTS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT US</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-slide" style="background: linear-gradient(135deg, #0a1929 0%, #1565c0 100%);">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 text-white">
+                                    <h1 class="display-2 fw-bold mb-3">Innovation Redefined</h1>
+                                    <p class="lead mb-4">Experience cutting-edge technology with our latest collection
+                                        of premium electronics and smart devices.</p>
+                                    <div class="d-flex gap-3 flex-wrap">
+                                        <a href="products.html" class="btn btn-tech-primary">Explore Products</a>
+                                        <a href="about.html" class="btn btn-tech-outline">Learn More</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center d-none d-lg-block">
+                                    <i class="bi bi-phone"
+                                        style="font-size: 12rem; color: rgba(255, 255, 255, 0.2);"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-slide" style="background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 text-white">
+                                    <h1 class="display-2 fw-bold mb-3">Smart Living</h1>
+                                    <p class="lead mb-4">Transform your lifestyle with intelligent devices designed for
+                                        modern living and seamless connectivity.</p>
+                                    <div class="d-flex gap-3 flex-wrap">
+                                        <a href="products.html" class="btn btn-tech-primary">Shop Now</a>
+                                        <a href="contact.html" class="btn btn-tech-outline">Get Support</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center d-none d-lg-block">
+                                    <i class="bi bi-laptop"
+                                        style="font-size: 12rem; color: rgba(255, 255, 255, 0.2);"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-slide" style="background: linear-gradient(135deg, #0d47a1 0%, #0a1929 100%);">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 text-white">
+                                    <h1 class="display-2 fw-bold mb-3">Premium Quality</h1>
+                                    <p class="lead mb-4">Discover electronics that combine superior performance, sleek
+                                        design, and unmatched reliability.</p>
+                                    <div class="d-flex gap-3 flex-wrap">
+                                        <a href="products.html" class="btn btn-tech-primary">View Collection</a>
+                                        <a href="contact.html" class="btn btn-tech-outline">Contact Us</a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center d-none d-lg-block">
+                                    <i class="bi bi-smartwatch"
+                                        style="font-size: 12rem; color: rgba(255, 255, 255, 0.2);"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+    <section class="py-5" style="background: #fff;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold section-heading" style="color: #0a1929;">Featured Products</h2>
+                <p class="text-muted">Discover our latest collection of premium electronics</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-phone" style="font-size: 4rem; color: #1976d2;"></i>
+                            <h5 class="mt-3 fw-bold">Smartphones</h5>
+                            <p class="text-muted">Latest flagship phones with cutting-edge technology</p>
+                            <a href="products.html" class="btn btn-tech-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-laptop" style="font-size: 4rem; color: #1976d2;"></i>
+                            <h5 class="mt-3 fw-bold">Laptops</h5>
+                            <p class="text-muted">High-performance laptops for work and gaming</p>
+                            <a href="products.html" class="btn btn-tech-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-smartwatch" style="font-size: 4rem; color: #1976d2;"></i>
+                            <h5 class="mt-3 fw-bold">Wearables</h5>
+                            <p class="text-muted">Smart watches and fitness trackers</p><br>
+                            <a href="products.html" class="btn btn-tech-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" style="background: #f5f5f5;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold section-heading" style="color: #0a1929;">Why Choose TechVision</h2>
+                <p class="text-muted">Your trusted partner in technology</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-right" data-aos-delay="100">
+                    <div class="text-center feature-icon">
+                        <div class="mb-3">
+                            <i class="bi bi-shield-check" style="font-size: 3rem; color: #1976d2;"></i>
+                        </div>
+                        <h5 class="fw-bold">Warranty</h5>
+                        <p class="text-muted">100% genuine products with official warranty</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-right" data-aos-delay="300">
+                    <div class="text-center feature-icon">
+                        <div class="mb-3">
+                            <i class="bi bi-truck" style="font-size: 3rem; color: #1976d2;"></i>
+                        </div>
+                        <h5 class="fw-bold">Fast Delivery</h5>
+                        <p class="text-muted">Quick and secure delivery to your doorstep</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-left" data-aos-delay="500">
+                    <div class="text-center feature-icon">
+                        <div class="mb-3">
+                            <i class="bi bi-headset" style="font-size: 3rem; color: #1976d2;"></i>
+                        </div>
+                        <h5 class="fw-bold">24/7 Support</h5>
+                        <p class="text-muted">Round the clock customer assistance</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-left" data-aos-delay="700">
+                    <div class="text-center feature-icon">
+                        <div class="mb-3">
+                            <i class="bi bi-credit-card" style="font-size: 3rem; color: #1976d2;"></i>
+                        </div>
+                        <h5 class="fw-bold">Secure Payment</h5>
+                        <p class="text-muted">Safe and encrypted payment methods</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 special-offers-section" style="background: linear-gradient(135deg, #0a1929 0%, #1565c0 100%);" data-aos="flip-up">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-white">
+                    <h2 class="fw-bold mb-3">Special Weekend Deals</h2>
+                    <p class="lead mb-4">Get up to 30% off on selected electronics. Limited time offer!</p>
+                    <a href="products.html" class="btn btn-tech-primary btn-lg">Shop Deals</a>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <i class="bi bi-gift" style="font-size: 8rem; color: rgba(255, 255, 255, 0.2);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="row g-4" data-aos="fade-up">
+                <div class="col-lg-4">
+                    <h4>TechVision</h4>
+                    <p>Leading provider of innovative electronics and smart technology solutions for modern living and
+                        digital transformation.</p>
+                    <div class="mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h4>Contact Info</h4>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i> Aptech Learning, Hyderi, North Nazimabad, Karachi</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i> +92 (300) 123-4567</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> support@techvision.com</p>
+                </div>
+                <div class="col-lg-4">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                    <p>Sunday: 10:00 AM - 6:00 PM</p>
+                    <p>24/7 Online Support Available</p>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center" data-aos="fade-up">
+                <p>&copy; 2025 TechVision Electronics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000, // values from 0 to 3000, with step 50ms
+            once: true, // whether animation should happen only once - while scrolling down
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+        });
+
+        // Hover effects on interactive elements
+        const hoverElements = document.querySelectorAll('a, button, .btn, .card, .feature-icon, .carousel-indicators button, .carousel-control-prev, .carousel-control-next');
+
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursor.style.backgroundColor = 'rgba(25, 118, 210, 0.5)';
+                cursor.style.borderColor = '#1976d2';
+
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                cursorFollower.style.borderColor = '#1976d2';
+                cursorFollower.style.backgroundColor = 'rgba(25, 118, 210, 0.1)';
+            });
+
+            element.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.backgroundColor = 'rgba(25, 118, 210, 0.2)';
+                cursor.style.borderColor = '#1976d2';
+
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.borderColor = 'rgba(25, 118, 210, 0.3)';
+                cursorFollower.style.backgroundColor = 'transparent';
+            });
+        });
+    </script>
+</body>
+
+</html>
