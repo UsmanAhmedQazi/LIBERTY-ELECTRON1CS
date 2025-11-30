@@ -44,7 +44,9 @@
         
         /* Custom styling for inputs */
         .form-input {
-            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150;
+           box-shadow: 0px 2px 2px 1px;
+           border-radius: 5px;
+           height: 40px;
         }
         
         .form-input:focus {
@@ -97,13 +99,33 @@
 </head>
 <body class="antialiased">
 
+    <div>
+
+<!-- ✅ Previous Page Button -->
+<a href="products.html" 
+   class="fixed top-5 left-5 flex items-center space-x-2 
+          bg-white shadow-md px-4 py-2 rounded-lg 
+          text-gray-700 font-medium hover:bg-gray-100 
+          transition z-[999]">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M15 18l-6-6 6-6" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"/>
+    </svg>
+    <span>Previous</span>
+</a>
+</div>
+
 <!-- Custom Cursor -->
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 
+
 <div class="min-h-screen p-4 sm:p-8 md:p-10">
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center sm:text-left" data-aos="fade-down">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center sm:text-left" data-aos="fade-down" style="text-align: center;">
             Secure Checkout
         </h1>
 
@@ -316,7 +338,7 @@
         cursorFollower.style.top = e.clientY + 'px';
     });
 
-    // Hover effects on interactive elements
+    // Hover effects
     const hoverElements = document.querySelectorAll('input, select, button, label, .shipping-option, .card-icon');
     
     hoverElements.forEach(element => {
@@ -350,29 +372,21 @@
         const totalAmountElement = document.getElementById('total-amount');
         const messageBox = document.getElementById('message-box');
         
-        // Mock fixed amounts (in cents for safe calculation)
-        const SUBTOTAL_CENTS = 189700; // $1,897.00
+        const SUBTOTAL_CENTS = 189700; 
         const TAX_RATE = 0.08;
         const SHIPPING_RATES = {
-            'standard': 500,  // $5.00
-            'express': 1999   // $19.99
+            'standard': 500,
+            'express': 1999
         };
 
-        // Helper function to format cents to dollars
         const formatCurrency = (cents) => `$${(cents / 100).toFixed(2)}`;
 
-        // Function to calculate and update totals
         const updateTotals = () => {
             const selectedShipping = document.querySelector('input[name="shipping-method"]:checked').value;
             const shippingCents = SHIPPING_RATES[selectedShipping];
-            
-            // Calculate tax on subtotal
             const taxCents = Math.round(SUBTOTAL_CENTS * TAX_RATE);
-            
-            // Calculate total
             const totalCents = SUBTOTAL_CENTS + shippingCents + taxCents;
 
-            // Update DOM elements with animation
             shippingAmountElement.style.transform = 'scale(1.1)';
             taxAmountElement.style.transform = 'scale(1.1)';
             totalAmountElement.style.transform = 'scale(1.1)';
@@ -386,8 +400,7 @@
                 taxAmountElement.style.transform = 'scale(1)';
                 totalAmountElement.style.transform = 'scale(1)';
             }, 150);
-            
-            // Highlight the selected shipping option
+
             shippingRadios.forEach(radio => {
                 const parent = radio.closest('div');
                 if (radio.checked) {
@@ -400,12 +413,10 @@
             });
         };
 
-        // Event listeners for shipping method change
         shippingRadios.forEach(radio => {
             radio.addEventListener('change', updateTotals);
         });
 
-        // Card number formatting
         const cardNumberInput = document.getElementById('card-number');
         cardNumberInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\s/g, '');
@@ -413,7 +424,6 @@
             e.target.value = formattedValue;
         });
 
-        // Expiry date formatting
         const expiryInput = document.getElementById('expiry-date');
         expiryInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\D/g, '');
@@ -423,13 +433,11 @@
             e.target.value = value;
         });
 
-        // Event listener for form submission
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             messageBox.classList.remove('hidden', 'text-red-500', 'text-green-600');
             
             if (form.checkValidity()) {
-                // Mock processing delay
                 messageBox.classList.add('text-blue-600');
                 messageBox.textContent = "Processing order, please wait...";
 
@@ -438,7 +446,6 @@
                     messageBox.classList.add('text-green-600');
                     messageBox.textContent = '✅ Order successfully placed! Confirmation email sent.';
                     
-                    // Animate success message
                     messageBox.style.transform = 'scale(1.05)';
                     setTimeout(() => {
                         messageBox.style.transform = 'scale(1)';
@@ -452,12 +459,10 @@
             }
         });
 
-        // Add transition to amounts
         [shippingAmountElement, taxAmountElement, totalAmountElement].forEach(el => {
             el.style.transition = 'transform 0.2s ease';
         });
 
-        // Initialize totals on load
         updateTotals();
     });
 </script>
